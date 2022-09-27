@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TermProject</string>
+    <string name="selfCareBanner">Self Care Activity Banner</string>
 </resources>
