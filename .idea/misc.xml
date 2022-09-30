@@ -5,7 +5,8 @@
       <map>
         <entry key="..\:/Users/nkuch/AndroidStudioProjects/TermProject/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2930253623188406" />
-        <entry key="app/src/main/res/layout/self_care_tasks_activity.xml" value="0.379981884057971" />
+        <entry key="app/src/main/res/layout/self_care_tasks_activity.xml" value="0.16842105263157894" />
+        <entry key="app/src/main/res/layout/self_care_tasks_item.xml" value="0.458587646484375" />
       </map>
     </option>
   </component>
