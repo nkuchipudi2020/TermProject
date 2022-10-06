@@ -4,19 +4,40 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Message
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.widget.*
+import androidx.fragment.app.Fragment
+import com.example.termproject.databinding.ActivityMainBinding
 import kotlinx.coroutines.delay
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding : ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val berryButton = findViewById<ImageButton>(R.id.berryButton)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        replaceFragment(Gompei())
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when(it.itemId){
+                R.id.gompei -> replaceFragment(Gompei())
+                R.id.list -> replaceFragment(list())
+                R.id.message -> replaceFragment(message())
+
+                else ->{
+
+                }
+            }
+            true
+
+        }
+       /** val berryButton = findViewById<ImageButton>(R.id.berryButton)
         val berryCounter = findViewById<TextView>(R.id.berryCounter)
         val berry = findViewById<ImageView>(R.id.berry)
         val heart = findViewById<ImageView>(R.id.heart)
@@ -42,7 +63,14 @@ class MainActivity : AppCompatActivity() {
             else{
                 Toast.makeText(this, "Send kind messages to your peers for more berries!", Toast.LENGTH_SHORT).show()
             }
-        }
+        } **/
+    }
+
+    private fun replaceFragment(fragment : Fragment){
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frameLayout2, fragment)
+        fragmentTransaction.commit()
     }
 
     private fun fadeOutAndHideImage(img: ImageView) {
