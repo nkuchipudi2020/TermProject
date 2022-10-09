@@ -1,10 +1,17 @@
 package com.example.termproject
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.LinearInterpolator
+import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,6 +39,32 @@ class Gompei : Fragment() {
 
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?){
+        super.onViewCreated(view, savedInstanceState)
+        val layoutManager = LinearLayoutManager(context)
+        val berryButton = view.findViewById<ImageButton>(R.id.berryButton)
+        val berryCounter = view.findViewById<TextView>(R.id.berryCounter)
+        val berry = view.findViewById<ImageView>(R.id.berry)
+        val heart = view.findViewById<ImageView>(R.id.heart)
+        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
+        heart.setVisibility(View.INVISIBLE);
+        progressBar.progress = 6;
+
+
+        berryButton.setOnClickListener {
+            var num = berryCounter.text.toString().toInt();
+            if(num > 0){
+                num = num - 1;
+                berryCounter.text = num.toString();
+                berry.setVisibility(View.VISIBLE);
+                fadeOutAndHideImage(berry);
+                heart.setVisibility(View.VISIBLE);
+                bounceImage(heart);
+                //bounceDown(heart);
+
+            }
+        }
+    }
 
 
     override fun onCreateView(
@@ -63,4 +96,73 @@ class Gompei : Fragment() {
                 }
             }
     }
+
+
+    private fun fadeOutAndHideImage(img: ImageView) {
+        val fadeOut = AlphaAnimation(1F, 0F)
+        fadeOut.setInterpolator(AccelerateInterpolator())
+        fadeOut.setDuration(1200)
+
+        fadeOut.setAnimationListener(object: Animation.AnimationListener {
+            override fun onAnimationEnd(animation: Animation) {
+                img.setVisibility(View.GONE)
+            }
+            override fun onAnimationRepeat(animation: Animation) {}
+            override  fun onAnimationStart(animation: Animation) {}
+        })
+        img.startAnimation(fadeOut)
+    }
+
+    private fun bounceImage(img: ImageView) {
+        val translationYFrom = 70f
+        val translationYTo = 150f
+        val valueAnimator = ValueAnimator.ofFloat(translationYFrom, translationYTo).apply {
+            interpolator = LinearInterpolator()
+            duration = 500
+        }
+        valueAnimator.addUpdateListener {
+            val value = it.animatedValue as Float
+            img?.translationY = value
+        }
+        valueAnimator.start()
+        val translationYFrom2 = 150f
+        val translationYTo2 = 70f
+        val valueAnimator2 = ValueAnimator.ofFloat(translationYFrom2, translationYTo2).apply {
+            interpolator = LinearInterpolator()
+            duration = 500
+        }
+        valueAnimator2.addUpdateListener {
+            val value = it.animatedValue as Float
+            img?.translationY = value
+        }
+        valueAnimator2.start()
+        fadeOutAndHideImage(img);
+    }
+
+    private fun bounceDown(img: ImageView) {
+        val translationYFrom = 140f
+        val translationYTo = 70f
+        val valueAnimator = ValueAnimator.ofFloat(translationYFrom, translationYTo).apply {
+            interpolator = LinearInterpolator()
+            duration = 500
+        }
+        valueAnimator.addUpdateListener {
+            val value = it.animatedValue as Float
+            img?.translationY = value
+        }
+        valueAnimator.start()
+        val translationYFrom2 = 70f
+        val translationYTo2 =140f
+        val valueAnimator2 = ValueAnimator.ofFloat(translationYFrom2, translationYTo2).apply {
+            interpolator = LinearInterpolator()
+            duration = 500
+        }
+        valueAnimator2.addUpdateListener {
+            val value = it.animatedValue as Float
+            img?.translationY = value
+        }
+        valueAnimator2.start()
+
+    }
+
 }
