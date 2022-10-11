@@ -14,7 +14,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/selfCareBanner" />
+        app:srcCompat="@drawable/selfcarebanner" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/selfCareTasksRecyclerView"
