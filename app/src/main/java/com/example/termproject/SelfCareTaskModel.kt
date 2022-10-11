@@ -1,6 +1,6 @@
 package com.example.termproject
 
-data class SelfCareTaskModel(private val completeCheck: Boolean, private val taskName: String) {
+data class SelfCareTaskModel(private var completeCheck: Boolean, private val taskName: String) {
 
     fun getCompleteStatus() : Boolean {
         return completeCheck
@@ -8,6 +8,10 @@ data class SelfCareTaskModel(private val completeCheck: Boolean, private val tas
 
     fun getTaskName() : String {
         return taskName
+    }
+
+    fun toggleTaskComplete() {
+        completeCheck = !completeCheck
     }
 
 }
