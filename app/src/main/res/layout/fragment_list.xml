@@ -8,8 +8,10 @@
 
     <ImageView
         android:id="@+id/selfCareBannerImageView"
-        android:layout_width="411dp"
-        android:layout_height="152dp"
+        android:layout_width="wrap_content"
+        android:layout_height="135dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="7dp"
         android:contentDescription="@string/selfCareBanner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -20,8 +22,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/selfCareTasksRecyclerView"
         android:layout_width="385dp"
-        android:layout_height="571dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="596dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
