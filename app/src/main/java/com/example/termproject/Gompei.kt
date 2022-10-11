@@ -1,51 +1,54 @@
 package com.example.termproject
 
-import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Message
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.widget.*
-import androidx.fragment.app.Fragment
-import com.example.termproject.databinding.ActivityMainBinding
-import kotlinx.coroutines.delay
+import androidx.recyclerview.widget.LinearLayoutManager
 
-class MainActivity : AppCompatActivity() {
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
 
-    private lateinit var binding : ActivityMainBinding
+/**
+ * A simple [Fragment] subclass.
+ * Use the [Gompei.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class Gompei : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        replaceFragment(Gompei())
-        binding.bottomNavigationView.setOnItemSelectedListener {
-            when(it.itemId){
-                R.id.gompei -> replaceFragment(Gompei())
-                R.id.list -> replaceFragment(list())
-                R.id.message -> replaceFragment(message())
-
-                else ->{
-
-                }
-            }
-            true
-
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
         }
-       /** val berryButton = findViewById<ImageButton>(R.id.berryButton)
-        val berryCounter = findViewById<TextView>(R.id.berryCounter)
-        val berry = findViewById<ImageView>(R.id.berry)
-        val heart = findViewById<ImageView>(R.id.heart)
-        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?){
+        super.onViewCreated(view, savedInstanceState)
+        val layoutManager = LinearLayoutManager(context)
+        val berryButton = view.findViewById<ImageButton>(R.id.berryButton)
+        val berryCounter = view.findViewById<TextView>(R.id.berryCounter)
+        val berry = view.findViewById<ImageView>(R.id.berry)
+        val heart = view.findViewById<ImageView>(R.id.heart)
+        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
         heart.setVisibility(View.INVISIBLE);
-
         progressBar.progress = 6;
-
 
 
         berryButton.setOnClickListener {
@@ -60,18 +63,40 @@ class MainActivity : AppCompatActivity() {
                 //bounceDown(heart);
 
             }
-            else{
-                Toast.makeText(this, "Send kind messages to your peers for more berries!", Toast.LENGTH_SHORT).show()
-            }
-        } **/
+        }
     }
 
-    private fun replaceFragment(fragment : Fragment){
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frameLayout2, fragment)
-        fragmentTransaction.commit()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_gompei, container, false)
     }
+
+
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment Gompei.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            Gompei().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+    }
+
 
     private fun fadeOutAndHideImage(img: ImageView) {
         val fadeOut = AlphaAnimation(1F, 0F)
@@ -79,10 +104,10 @@ class MainActivity : AppCompatActivity() {
         fadeOut.setDuration(1200)
 
         fadeOut.setAnimationListener(object: Animation.AnimationListener {
-            override fun onAnimationEnd(animation:Animation) {
+            override fun onAnimationEnd(animation: Animation) {
                 img.setVisibility(View.GONE)
             }
-            override fun onAnimationRepeat(animation:Animation) {}
+            override fun onAnimationRepeat(animation: Animation) {}
             override  fun onAnimationStart(animation: Animation) {}
         })
         img.startAnimation(fadeOut)
@@ -139,7 +164,5 @@ class MainActivity : AppCompatActivity() {
         valueAnimator2.start()
 
     }
-
-
 
 }
