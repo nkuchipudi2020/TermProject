@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/framelayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".list">
 
     <ImageView
@@ -20,15 +21,13 @@
         app:srcCompat="@drawable/selfcarebanner" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/selfCareTasksRecyclerView"
-        android:layout_width="385dp"
-        android:layout_height="596dp"
-        android:layout_marginTop="160dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selfCareBannerImageView" />
+        android:layout_width="match_parent"
+        android:id="@+id/myRecyclerView"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
+        />
+
+
+
 
 </FrameLayout>

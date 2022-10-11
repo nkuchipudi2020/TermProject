@@ -1,14 +1,24 @@
 package com.example.termproject
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.termproject.models.PostModel
+import com.example.termproject.models.Property
+import com.example.termproject.network.Api
+import com.example.termproject.network.ServiceGenerator
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,10 +34,6 @@ class list : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var selfCareModelList : ArrayList<SelfCareTaskModel>
-    private lateinit var selfCareBannerImageView : ImageView
-    private lateinit var adapter : SelfCareTasksAdapterClass
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,16 +45,33 @@ class list : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val layoutManager = LinearLayoutManager(context)
-        selfCareBannerImageView = view.findViewById(R.id.selfCareBannerImageView)
-        recyclerView = view.findViewById(R.id.selfCareTasksRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        selfCareModelList = setupModelList()
-        adapter = SelfCareTasksAdapterClass(selfCareModelList, SelfCareTasksAdapterClass.OnClickListener { aTask ->
-            Toast.makeText(context, aTask.getTaskName(), Toast.LENGTH_SHORT).show()
-        })
-        recyclerView.adapter = adapter
+        val serviceGenerator = ServiceGenerator.buildService(ApiService::class.java)
+        val call = serviceGenerator.getPosts()
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.myRecyclerView)
+
+
+            call.enqueue(object : Callback<MutableList<PostModel>>{
+                override fun onResponse(
+                    call: Call<MutableList<PostModel>>,
+                    response: Response<MutableList<PostModel>>
+                ) {
+                    if(response.isSuccessful){
+                        recyclerView.apply{
+                            layoutManager = LinearLayoutManager(context)
+                            adapter = PostAdapter(response.body()!!)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<MutableList<PostModel>>, t: Throwable) {
+                    t.printStackTrace()
+                    Log.e("ppppp", t.message.toString())
+                }
+
+            })
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -64,6 +87,7 @@ class list : Fragment() {
         }
         return noteModelListTemp
     }
+
 
     companion object {
         /**
