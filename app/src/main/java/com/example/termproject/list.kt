@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +24,10 @@ class list : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var selfCareModelList : ArrayList<SelfCareTaskModel>
+    private lateinit var selfCareBannerImageView : ImageView
+    private lateinit var adapter : SelfCareTasksAdapterClass
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,12 +37,32 @@ class list : Fragment() {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val layoutManager = LinearLayoutManager(context)
+        selfCareBannerImageView = view.findViewById(R.id.selfCareBannerImageView)
+        recyclerView = view.findViewById(R.id.selfCareTasksRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        selfCareModelList = setupModelList()
+        adapter = SelfCareTasksAdapterClass(selfCareModelList, SelfCareTasksAdapterClass.OnClickListener { aTask ->
+            Toast.makeText(context, aTask.getTaskName(), Toast.LENGTH_SHORT).show()
+        })
+        recyclerView.adapter = adapter
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_list, container, false)
+    }
+
+    private fun setupModelList():ArrayList<SelfCareTaskModel>{
+        val noteModelListTemp = ArrayList<SelfCareTaskModel>()
+        for (i in 1..21){
+            noteModelListTemp.add(SelfCareTaskModel(false,"9/$i/2022"))
+        }
+        return noteModelListTemp
     }
 
     companion object {
