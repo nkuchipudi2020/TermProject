@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.termproject.models.PostModel
 import com.example.termproject.models.Property
-import com.example.termproject.network.Api
+//import com.example.termproject.network.Api
 import com.example.termproject.network.ServiceGenerator
 import retrofit2.Call
 import retrofit2.Callback
@@ -50,7 +50,7 @@ class list : Fragment() {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.myRecyclerView)
 
-
+//TODO: implement something like this for put request in PostAdapter's onclick method
             call.enqueue(object : Callback<MutableList<PostModel>>{
                 override fun onResponse(
                     call: Call<MutableList<PostModel>>,

@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.termproject.models.PostModel
+import com.example.termproject.network.ServiceGenerator
 
 
 class PostAdapter(val postModel: MutableList<PostModel>): RecyclerView.Adapter<PostViewHolder>() {
@@ -29,6 +31,7 @@ class PostAdapter(val postModel: MutableList<PostModel>): RecyclerView.Adapter<P
         return holder.bindView(postModel[position],deliveryNotesModels)
     }
 
+
     override fun getItemCount(): Int {
         return postModel.size
     }
@@ -40,14 +43,22 @@ class PostViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
 
     private val task_title: TextView = itemView.findViewById(R.id.task_title)
     private val task_check : CheckBox = itemView.findViewById(R.id.task_checkbox)
-    private val task_card : CardView = itemView.findViewById(R.id.task_card)
+//    private val task_card : CardView = itemView.findViewById(R.id.task_card)
 
     fun bindView(postModel : PostModel, list : MutableList<PostModel> ){
         task_title.text = postModel.task
         task_check.isChecked = list.contains(postModel)
 
         task_check.setOnCheckedChangeListener { _, isChecked ->
+            //TODO:  Insert PUT code here
+            // url + /whatever the id is
+            // PUT request with body = { "task": "taskname" , "done":isChecked}
+//            val serviceGenerator = ServiceGenerator.buildService(ApiService::class.java)
+//            val call = serviceGenerator.putRequest()
+
+            println(isChecked)
             if (isChecked) {
+                // Send a Put request to server, to change Tasks done status
                 if (!list.contains(postModel))
                     list.add(postModel)
             } else {
