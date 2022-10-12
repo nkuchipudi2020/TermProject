@@ -33,10 +33,10 @@ class SelfCareTasksAdapterClass(private var mList: ArrayList<SelfCareTaskModel>,
     }
 
     class OnClickListener(val clickListener: (selfCareItem: SelfCareTaskModel) -> Unit) {
-//        fun onClick(selfCareItem: SelfCareTaskModel) = clickListener(selfCareItem)
-        fun onClick(selfCareItem: SelfCareTaskModel){
-            selfCareItem.toggleTaskComplete()
-        }
+        fun onClick(selfCareItem: SelfCareTaskModel) = clickListener(selfCareItem)
+//        fun onClick(selfCareItem: SelfCareTaskModel){
+//            selfCareItem.toggleTaskComplete()
+//        }
     }
 
 
