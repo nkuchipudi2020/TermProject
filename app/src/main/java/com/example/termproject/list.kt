@@ -20,7 +20,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -31,7 +30,6 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class list : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
@@ -41,6 +39,7 @@ class list : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+//        recyclerView = findViewById(R.id.selfCareTasksRecyclerView)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,6 +59,7 @@ class list : Fragment() {
                         recyclerView.apply{
                             layoutManager = LinearLayoutManager(context)
                             adapter = PostAdapter(response.body()!!)
+                            println(response.body())
                         }
                     }
                 }
@@ -80,13 +80,13 @@ class list : Fragment() {
         return inflater.inflate(R.layout.fragment_list, container, false)
     }
 
-    private fun setupModelList():ArrayList<SelfCareTaskModel>{
-        val noteModelListTemp = ArrayList<SelfCareTaskModel>()
-        for (i in 1..21){
-            noteModelListTemp.add(SelfCareTaskModel(false,"9/$i/2022"))
-        }
-        return noteModelListTemp
-    }
+//    private fun setupModelList():ArrayList<SelfCareTaskModel>{
+//        val noteModelListTemp = ArrayList<SelfCareTaskModel>()
+//        for (i in 1..21){
+//            noteModelListTemp.add(SelfCareTaskModel(false,"9/$i/2022"))
+//        }
+//        return noteModelListTemp
+//    }
 
 
     companion object {
@@ -98,7 +98,6 @@ class list : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment list.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             list().apply {
@@ -106,6 +105,7 @@ class list : Fragment() {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
+//                println("$ARG_PARAM1 $ARG_PARAM2")
             }
     }
 }
