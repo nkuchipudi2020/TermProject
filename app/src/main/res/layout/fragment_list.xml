@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/selfCareBannerImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="135dp"
+        android:layout_width="400dp"
+        android:layout_height="145dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="7dp"
         android:contentDescription="@string/selfCareBanner"
@@ -18,18 +18,15 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/selfcarebanner" />
+        app:srcCompat="@drawable/berrybanner" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
         android:id="@+id/myRecyclerView"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="150dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
-
-
+        android:layout_marginTop="170dp"
+        android:layout_marginRight="20dp" />
 
 
 </FrameLayout>

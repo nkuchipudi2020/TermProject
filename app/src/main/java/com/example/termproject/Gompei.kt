@@ -1,7 +1,12 @@
 package com.example.termproject
 
 import android.animation.ValueAnimator
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,16 +17,20 @@ import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.widget.*
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.termproject.models.PostModel
 import com.example.termproject.network.ServiceGenerator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.jar.Manifest
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+//val sharedPreference =  getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
 
 /**
  * A simple [Fragment] subclass.
@@ -48,6 +57,9 @@ class Gompei : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
+        val appContext = requireContext().applicationContext
+        var prefs = appContext.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        var editor = prefs.edit()
         super.onViewCreated(view, savedInstanceState)
         val layoutManager = LinearLayoutManager(context)
         val berryButton = view.findViewById<ImageButton>(R.id.berryButton)
@@ -57,7 +69,10 @@ class Gompei : Fragment() {
         val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
         heart.setVisibility(View.INVISIBLE);
 
-        progressBar.progress = 0;
+
+        progressBar.progress = prefs.getInt("progress", 0)
+        var berryNum = 0;
+        berryCounter.text = berryNum.toString();
 
         val serviceGenerator = ServiceGenerator.buildService(ApiService::class.java)
         val callGET = serviceGenerator.getPosts()
@@ -73,7 +88,8 @@ class Gompei : Fragment() {
                         for(i in 0 until items.count()){
                             val done = items[i].done
                             if(done == true){
-                                progressBar.progress = progressBar.progress + 10;
+                                berryNum += 1;
+                                berryCounter.text = berryNum.toString();
                             }
                         }
                     }
@@ -96,6 +112,9 @@ class Gompei : Fragment() {
                 fadeOutAndHideImage(berry);
                 heart.setVisibility(View.VISIBLE);
                 bounceImage(heart);
+                progressBar.progress = progressBar.progress + 10;
+                editor.putInt("progress", progressBar.progress)
+                editor.commit()
                 //bounceDown(heart);
 
             }

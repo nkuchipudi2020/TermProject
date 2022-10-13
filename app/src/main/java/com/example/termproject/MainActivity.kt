@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.gompei -> replaceFragment(Gompei())
                 R.id.list -> replaceFragment(list())
-                R.id.message -> replaceFragment(message())
 
                 else ->{
 
