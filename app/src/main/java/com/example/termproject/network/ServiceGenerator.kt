@@ -4,6 +4,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 // TODO: change this to local server now:  http://10.0.2.2:3000/tasks
+// TODO: Command to start JSON Server: json-server --watch app/serverData/data.json
 object ServiceGenerator {
     private val client = OkHttpClient.Builder().build()
     private val retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2:3000/")
