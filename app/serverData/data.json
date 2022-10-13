@@ -1,19 +1,19 @@
 {
   "posts": [
     {
-      "id": 1,
       "task": "Eat food",
-      "done": false
+      "done": "true",
+      "id": 1
     },
     {
-      "id": 2,
       "task": "Drink water",
-      "done": false
+      "done": "false",
+      "id": 2
     },
     {
-      "id": 3,
       "task": "Meditate",
-      "done": false
+      "done": "false",
+      "id": 3
     }
   ]
 }

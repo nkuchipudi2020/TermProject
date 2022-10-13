@@ -2,6 +2,7 @@ package com.example.termproject
 
 import android.content.Context
 import android.preference.PreferenceManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,10 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.termproject.models.PostModel
 import com.example.termproject.network.ServiceGenerator
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.http.POST
 
 
 class PostAdapter(val postModel: MutableList<PostModel>): RecyclerView.Adapter<PostViewHolder>() {
@@ -20,8 +25,8 @@ class PostAdapter(val postModel: MutableList<PostModel>): RecyclerView.Adapter<P
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_post, parent, false)
-        val sharedPreference =  view.getContext().getSharedPreferences("PREFERENCE_NAME",Context.MODE_PRIVATE)
-        var editor = sharedPreference.edit()
+//        val sharedPreference =  view.getContext().getSharedPreferences("PREFERENCE_NAME",Context.MODE_PRIVATE)
+//        var editor = sharedPreference.edit()
         return PostViewHolder(view)
     }
 
@@ -47,24 +52,77 @@ class PostViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
 
     fun bindView(postModel : PostModel, list : MutableList<PostModel> ){
         task_title.text = postModel.task
-        task_check.isChecked = list.contains(postModel)
+        if(postModel.done == true){
+            task_check.isChecked = true
+        }
+        //task_check.isChecked = list.contains(postModel)
+
 
         task_check.setOnCheckedChangeListener { _, isChecked ->
             //TODO:  Insert PUT code here
             // url + /whatever the id is
             // PUT request with body = { "task": "taskname" , "done":isChecked}
-//            val serviceGenerator = ServiceGenerator.buildService(ApiService::class.java)
-//            val call = serviceGenerator.putRequest()
+            val serviceGenerator = ServiceGenerator.buildService(ApiService::class.java)
+            val callPUT = serviceGenerator.putRequest(postModel.id, postModel.task, isChecked)
 
-            println(isChecked)
-            if (isChecked) {
-                // Send a Put request to server, to change Tasks done status
-                if (!list.contains(postModel))
-                    list.add(postModel)
-            } else {
-                //task_check.isChecked = false
-                list.remove(postModel)
-            }
+            callPUT.enqueue(object: Callback<PostModel>{
+                override fun onResponse(call: Call<PostModel>, response: Response<PostModel>) {
+                    if(response.isSuccessful){
+                        var updatedDestination = response.body()
+                        println(response.body())
+                    }
+                }
+
+                override fun onFailure(call: Call<PostModel>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+
+//            fun toggleCheck() {
+//                println(isChecked)
+//                if (isChecked) {
+//                    // Send a Put request to server, to change Tasks done status
+//                    if (!list.contains(postModel))
+//                        list.add(postModel)
+//                } else {
+//                    //task_check.isChecked = false
+//                    list.remove(postModel)
+//                }
+
+//                println(isChecked)
+//                if (isChecked) {
+//                    // Send a Put request to server, to change Tasks done status
+//                    callPUT.
+//                    if (!list.contains(postModel))
+//                        list.add(postModel)
+//                } else {
+//                    //task_check.isChecked = false
+//                    list.remove(postModel)
+//                }
+
+//            }
+
+
+
+//            callPUT.enqueue(object : Callback<MutableList<PostModel>>{
+//                override fun onResponse(
+//                    call: Call<MutableList<PostModel>>,
+//                    response: Response<MutableList<PostModel>>
+//                ){
+//                    if(response.isSuccessful){
+////                        toggleCheck()
+//                    }
+//                }
+
+//                override fun onFailure(call: Call<MutableList<PostModel>>, t: Throwable) {
+//                    t.printStackTrace()
+//                    Log.e("ppppp", t.message.toString())
+//                }
+//            })
+
+
+
         }
     }
 }

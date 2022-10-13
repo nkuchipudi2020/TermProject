@@ -6,14 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.termproject.models.PostModel
-import com.example.termproject.models.Property
 //import com.example.termproject.network.Api
 import com.example.termproject.network.ServiceGenerator
 import retrofit2.Call
@@ -45,12 +40,12 @@ class list : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val serviceGenerator = ServiceGenerator.buildService(ApiService::class.java)
-        val call = serviceGenerator.getPosts()
+        val callGET = serviceGenerator.getPosts()
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.myRecyclerView)
 
 //TODO: implement something like this for put request in PostAdapter's onclick method
-            call.enqueue(object : Callback<MutableList<PostModel>>{
+            callGET.enqueue(object : Callback<MutableList<PostModel>>{
                 override fun onResponse(
                     call: Call<MutableList<PostModel>>,
                     response: Response<MutableList<PostModel>>

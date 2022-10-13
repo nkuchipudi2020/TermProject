@@ -2,6 +2,7 @@ package com.example.termproject
 
 import android.animation.ValueAnimator
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,11 @@ import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.termproject.models.PostModel
+import com.example.termproject.network.ServiceGenerator
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -37,6 +43,10 @@ class Gompei : Fragment() {
 
     }
 
+    fun parseJson(){
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
         val layoutManager = LinearLayoutManager(context)
@@ -46,8 +56,36 @@ class Gompei : Fragment() {
         val heart = view.findViewById<ImageView>(R.id.heart)
         val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
         heart.setVisibility(View.INVISIBLE);
-        progressBar.progress = 6;
 
+        progressBar.progress = 0;
+
+        val serviceGenerator = ServiceGenerator.buildService(ApiService::class.java)
+        val callGET = serviceGenerator.getPosts()
+
+        callGET.enqueue(object : Callback<MutableList<PostModel>> {
+            override fun onResponse(
+                call: Call<MutableList<PostModel>>,
+                response: Response<MutableList<PostModel>>
+            ) {
+                if(response.isSuccessful){
+                    val items = response.body()
+                    if(items != null){
+                        for(i in 0 until items.count()){
+                            val done = items[i].done
+                            if(done == true){
+                                progressBar.progress = progressBar.progress + 10;
+                            }
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<MutableList<PostModel>>, t: Throwable) {
+                t.printStackTrace()
+                Log.e("ppppp", t.message.toString())
+            }
+
+        })
 
         berryButton.setOnClickListener {
             var num = berryCounter.text.toString().toInt();
