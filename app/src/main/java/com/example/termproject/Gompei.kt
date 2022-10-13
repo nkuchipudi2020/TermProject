@@ -71,6 +71,7 @@ class Gompei : Fragment() {
 
 
         progressBar.progress = prefs.getInt("progress", 0)
+        progressBar.progress = 0
         var berryNum = 0;
         berryCounter.text = berryNum.toString();
 

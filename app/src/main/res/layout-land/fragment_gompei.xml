@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="370dp"
+    tools:context=".Gompei">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/backgroundImage"
+            android:layout_width="855dp"
+            android:layout_height="1802dp"
+            android:background="#00FFFFFF"
+            android:backgroundTint="#00FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/background" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="310dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="260dp"
+            android:layout_marginBottom="20dp"
+            android:scaleY="10"
+            app:layout_constraintBottom_toTopOf="@+id/gompeiPet"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/berryCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:backgroundTintMode="add"
+            android:fontFamily="sans-serif-black"
+            android:paddingLeft="11dp"
+            android:paddingTop="3dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="3dp"
+            android:text="25"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/berryButton"
+            app:layout_constraintStart_toEndOf="@+id/berryButton"
+            app:layout_constraintTop_toTopOf="@+id/berryButton" />
+
+        <ImageView
+            android:id="@+id/gompeiPet"
+            android:layout_width="230dp"
+            android:layout_height="255dp"
+            app:layout_constraintBottom_toBottomOf="@+id/backgroundImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/gompei" />
+
+        <ImageView
+            android:id="@+id/heart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="388dp"
+            android:layout_marginBottom="13dp"
+            app:layout_constraintBottom_toTopOf="@+id/gompeiPet"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/heart"
+            tools:visibility="invisible" />
+
+        <ImageButton
+            android:id="@+id/berryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="200dp"
+            android:background="@null"
+            android:scaleType="center"
+            app:layout_constraintBottom_toBottomOf="@+id/gompeiPet"
+            app:layout_constraintEnd_toStartOf="@+id/gompeiPet"
+            app:srcCompat="@drawable/berryicon"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageView
+            android:id="@+id/berry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="388dp"
+            android:layout_marginBottom="-200dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/gompeiPet"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/berry" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
